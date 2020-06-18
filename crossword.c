@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "buildquestion.h"
+#include "file.h"
+
 typedef struct crossword {
     char **boxes;
     int num_rows;
@@ -19,22 +22,42 @@ int crossword_delete(crossword_t *crossword);
 int crossword_new_test(crossword_t*);
 
 int main(int argc, char **argv) {
-
     //TODO: Read from command line. At the moment, hardcode values
-    crossword_t *crossword;
-    crossword = crossword_new(15, 15);
-    
-    int result_crossword_new_test = crossword_new_test(crossword);
-    if(result_crossword_new_test == 0) {
-        printf("Crossword new test success\n");
-    } else {
-        printf("Crossword new test failed wiht code %d\n", result_crossword_new_test);
-        return 1;
+
+    FILE *fp;
+
+    fp = fopen("testquestions", "r");
+
+    questions_t *questions = questions_new(fp);
+
+    //test extraction
+    question_t *question = grab_question(questions);
+    while(question != NULL) {
+        //printf("Word%*s with size of %*d has clue %*s\n", 10, question->word, 5, question->word_length, 20, question->clue);
+        printf("Word%s with size of %d has clue %s\n", question->word, question->word_length, question->clue);
+        question = grab_question(questions);
     }
 
-    crossword_print(crossword);
+    fclose(fp);
 
-    crossword_delete(crossword);
+
+
+    // crossword_t *crossword;
+    // crossword = crossword_new(15, 15);
+    
+    // int result_crossword_new_test = crossword_new_test(crossword);
+    // if(result_crossword_new_test == 0) {
+    //     printf("Crossword new test success\n");
+    // } else {
+    //     printf("Crossword new test failed wiht code %d\n", result_crossword_new_test);
+    //     return 1;
+    // }
+
+    // crossword_print(crossword);
+
+    // crossword_delete(crossword);
+
+
 
     return 0;
 }
@@ -114,9 +137,6 @@ int crossword_new_test(crossword_t *crossword) {
     //assign character to crossword;
     for(int i = 0; i < rows; i++) {
         for(int k = 0; k < columns; k++) {
-            //char *locale;
-
-            //locale = setlocale(LC_ALL, "")
             crossword->boxes[i][k] = 'X';
         }
     }

@@ -2,11 +2,11 @@
 # Author: Oscar Lee
 
 PROG = crossword
-OBJS = crossword.o
+OBJS = crossword.o buildquestion.o file.o
 
 # TESTING=-DTEST
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb $(TESTING) -I../common
+CFLAGS = -Wall -pedantic -std=c11 -ggdb $(TESTING)
 CC = gcc
 MAKE = make
 
