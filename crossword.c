@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     question_t *question = grab_question(questions);
     while(question != NULL) {
         //printf("Word%*s with size of %*d has clue %*s\n", 10, question->word, 5, question->word_length, 20, question->clue);
-        printf("Word%s with size of %d has clue %s\n", question->word, question->word_length, question->clue);
+        printf("Word%*s    with size of %*d    has clue %*s\n", 20, getWord(question), 5, getWordlength(question), 20, getClue(question));
         question = grab_question(questions);
     }
 

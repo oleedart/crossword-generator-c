@@ -105,6 +105,17 @@ question_t *grab_question(questions_t *questions) {
 
 }
 
+char *getWord(question_t *question) {
+    return question->word;
+}
+
+char *getClue(question_t *question) {
+    return question->clue;
+}
+int getWordlength(question_t *question) {
+    return question->word_length;
+}
+
 static int get_number_of_questions(FILE *fp) {
     return lines_in_file(fp);
 }
